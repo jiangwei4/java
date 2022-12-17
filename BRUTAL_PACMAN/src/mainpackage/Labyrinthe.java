@@ -390,10 +390,10 @@ public class Labyrinthe
     }
     
     public void posXetY(final boolean[][] tab) {
-        int i;
-        int j;
-        for (i = this.hauteur - 3, j = this.largeur / 2 - 1; !tab[i][j]; --i, j = this.largeur / 2) {
-            if (--j == 0) {}
+        int i = this.hauteur - 3;
+        int j = this.largeur / 2 - 1;
+        while (!tab[i][j]) {
+        	i-=1;
         }
         this.posY = j;
         this.posX = i;
