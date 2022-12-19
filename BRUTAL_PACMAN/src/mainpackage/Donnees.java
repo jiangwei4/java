@@ -128,9 +128,9 @@ public class Donnees {
    BufferedImage[] extraireSprites() {
       BufferedImage[] sprites = new BufferedImage[156];
 
-      for(int i = 0; i < 88; ++i) {
+      for(int i = 0; i < 89; ++i) {
          if (i == 20) {
-            i += 2;
+            //i += 2;
          }
 
          try {

@@ -59,49 +59,9 @@ public class PanInscritpion2 extends JPanel
     
     public void afficherScore(final Graphics g, final double score, final int l, final int h) {
         final String Score = new StringBuilder(String.valueOf(score)).toString();
+        int base = 68;
         for (int i = 0; i < Score.length(); ++i) {
-            switch (Score.charAt(i)) {
-                case '0': {
-                    g.drawImage(this.donnees.getListeSprites()[68], (i + l) * this.largeurCasePix, h * this.hauteurCasePix, this.largeurCasePix, this.hauteurCasePix, null);
-                    break;
-                }
-                case '1': {
-                    g.drawImage(this.donnees.getListeSprites()[69], (i + l) * this.largeurCasePix, h * this.hauteurCasePix, this.largeurCasePix, this.hauteurCasePix, null);
-                    break;
-                }
-                case '2': {
-                    g.drawImage(this.donnees.getListeSprites()[70], (i + l) * this.largeurCasePix, h * this.hauteurCasePix, this.largeurCasePix, this.hauteurCasePix, null);
-                    break;
-                }
-                case '3': {
-                    g.drawImage(this.donnees.getListeSprites()[71], (i + l) * this.largeurCasePix, h * this.hauteurCasePix, this.largeurCasePix, this.hauteurCasePix, null);
-                    break;
-                }
-                case '4': {
-                    g.drawImage(this.donnees.getListeSprites()[72], (i + l) * this.largeurCasePix, h * this.hauteurCasePix, this.largeurCasePix, this.hauteurCasePix, null);
-                    break;
-                }
-                case '5': {
-                    g.drawImage(this.donnees.getListeSprites()[73], (i + l) * this.largeurCasePix, h * this.hauteurCasePix, this.largeurCasePix, this.hauteurCasePix, null);
-                    break;
-                }
-                case '6': {
-                    g.drawImage(this.donnees.getListeSprites()[74], (i + l) * this.largeurCasePix, h * this.hauteurCasePix, this.largeurCasePix, this.hauteurCasePix, null);
-                    break;
-                }
-                case '7': {
-                    g.drawImage(this.donnees.getListeSprites()[75], (i + l) * this.largeurCasePix, h * this.hauteurCasePix, this.largeurCasePix, this.hauteurCasePix, null);
-                    break;
-                }
-                case '8': {
-                    g.drawImage(this.donnees.getListeSprites()[76], (i + l) * this.largeurCasePix, h * this.hauteurCasePix, this.largeurCasePix, this.hauteurCasePix, null);
-                    break;
-                }
-                case '9': {
-                    g.drawImage(this.donnees.getListeSprites()[77], (i + l) * this.largeurCasePix, h * this.hauteurCasePix, this.largeurCasePix, this.hauteurCasePix, null);
-                    break;
-                }
-            }
+            g.drawImage(this.donnees.getListeSprites()[base+Character.getNumericValue(Score.charAt(i))], (i + l) * this.largeurCasePix, h * this.hauteurCasePix, this.largeurCasePix, this.hauteurCasePix, null);
         }
     }
 }

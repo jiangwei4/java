@@ -10,7 +10,7 @@ public class ThreadPACMAN
     public ThreadPACMAN(final Donnees d) {
         this.jouerPM = true;
         this.pacman = new Thread[2];
-        this.fantome = new Thread[10];
+        this.fantome = new Thread[20];
         this.jouer = null;
     }
     

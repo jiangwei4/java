@@ -32,6 +32,7 @@ public class PanBestScore extends JPanel
     
     public void boutonMenu() {
         this.donnees.getJ1().setScoreF(0.0);
+        this.donnees.getJ2().setScoreF(0.0);
         final BoutonMenu Menu = new BoutonMenu("Menu");
         Menu.setBackground(Color.BLACK);
         Menu.setOpaque(true);

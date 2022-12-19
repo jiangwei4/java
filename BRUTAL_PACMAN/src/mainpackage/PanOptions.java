@@ -404,7 +404,7 @@ public class PanOptions extends JPanel
     
     @SuppressWarnings("removal")
 	public void remplirJComboBoxNbrFantome(final JComboBox<Integer> cb) {
-        for (int i = 0; i <= 10; ++i) {
+        for (int i = 0; i <= 20; ++i) {
             cb.addItem(new Integer(i));
         }
     }

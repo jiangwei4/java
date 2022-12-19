@@ -54,7 +54,7 @@ private static final int fractionCaseParImage = 10;
    }
 
    public void run() {
-      while(this.donnees.getThreadpacman().isJouerPM() && this.NbGummLaby != this.donnees.getNbrgumm()) {
+      while(this.donnees.getThreadpacman().isJouerPM() && this.NbGummLaby != this.donnees.getNbrgumm() && this.donnees.getAffichage().getPanchargement().getLaby() != null) {
          this.memeCaseJoueur();
          this.ratioCaseX = this.tailleX / 10;
          this.ratioCaseY = this.tailleY / 10;

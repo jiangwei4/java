@@ -92,6 +92,7 @@ public class PanJeu extends JPanel implements Runnable
             g.setColor(this.donnees.getListeFantomes()[i].getCouleur());
             g.fillRect(this.donnees.getListeFantomes()[i].getPixelX() + this.largeurCasePix / 10 + this.larg, this.donnees.getListeFantomes()[i].getPixelY() + this.hauteurCasePix / 10 + this.haut, this.largeurCasePix - this.largeurCasePix / 2, this.hauteurCasePix - this.hauteurCasePix / 2);
         }
+        this.afficherTimerBerserk(g);
         this.afficherVie(g);
     }
     
@@ -109,6 +110,32 @@ public class PanJeu extends JPanel implements Runnable
             }
         }
     }
+
+    public void afficherTimerBerserk(final Graphics g){
+        int score1_j1 = this.donnees.getJ1().getPacman().getCompteurSgumm();
+        double score1_j11 = 0.0;
+        if(score1_j1 > 0)
+            score1_j11 = Math.floor(score1_j1/100) / 10;
+        String score1 = new StringBuilder(String.valueOf(score1_j11)).toString();
+        final int sc1 = score1.length();
+        if (this.donnees.getOptions().isMulti()) {
+            int score2_j2 = this.donnees.getJ2().getPacman().getCompteurSgumm();
+            double score2_j22 = 0.0;
+            if(score2_j2 > 0)
+                score2_j22 = Math.floor(score2_j2/100) / 10;
+            final String score2 = new StringBuilder(String.valueOf(score2_j22)).toString();
+            for (int k = 0; k < 2 * this.larg / this.largeurCasePix + (this.donnees.getAffichage().getPanchargement().getLaby().getLargeur() - (sc1 + score2.length())); ++k) {
+                score1 = String.valueOf(score1) + "x";
+            }
+            score1 = String.valueOf(score1) + score2;
+            this.chiffre(g, score1, (this.laby.getHauteur() - 1) * this.hauteurCasePix + this.haut * 2 - this.hauteurCasePix * 2);
+        }
+        else {
+            for (int e = 0; e < score1.length(); ++e) {
+                this.chiffre(g, score1, (this.laby.getHauteur() -1) * this.hauteurCasePix + this.haut * 2 - this.hauteurCasePix * 2);
+            }
+        }
+    }
     
     public void afficherScore(final Graphics g) {
         String score1 = new StringBuilder(String.valueOf(this.donnees.getJ1().getPacman().getScore())).toString();
@@ -119,59 +146,25 @@ public class PanJeu extends JPanel implements Runnable
                 score1 = String.valueOf(score1) + "x";
             }
             score1 = String.valueOf(score1) + score2;
-            this.chiffre(g, score1);
+            this.chiffre(g, score1,0);
         }
         else {
             for (int e = 0; e < score1.length(); ++e) {
-                this.chiffre(g, score1);
+                this.chiffre(g, score1,0);
             }
         }
     }
     
-    public void chiffre(final Graphics g, final String Score) {
+    public void chiffre(final Graphics g, final String Score, int hauteur) {
+        int base = 68;
         for (int i = 0; i < Score.length(); ++i) {
-            switch (Score.charAt(i)) {
-                case '0': {
-                    g.drawImage(this.donnees.getListeSprites()[68], i * this.largeurCasePix, 0, this.largeurCasePix, this.hauteurCasePix, null);
-                    break;
-                }
-                case '1': {
-                    g.drawImage(this.donnees.getListeSprites()[69], i * this.largeurCasePix, 0, this.largeurCasePix, this.hauteurCasePix, null);
-                    break;
-                }
-                case '2': {
-                    g.drawImage(this.donnees.getListeSprites()[70], i * this.largeurCasePix, 0, this.largeurCasePix, this.hauteurCasePix, null);
-                    break;
-                }
-                case '3': {
-                    g.drawImage(this.donnees.getListeSprites()[71], i * this.largeurCasePix, 0, this.largeurCasePix, this.hauteurCasePix, null);
-                    break;
-                }
-                case '4': {
-                    g.drawImage(this.donnees.getListeSprites()[72], i * this.largeurCasePix, 0, this.largeurCasePix, this.hauteurCasePix, null);
-                    break;
-                }
-                case '5': {
-                    g.drawImage(this.donnees.getListeSprites()[73], i * this.largeurCasePix, 0, this.largeurCasePix, this.hauteurCasePix, null);
-                    break;
-                }
-                case '6': {
-                    g.drawImage(this.donnees.getListeSprites()[74], i * this.largeurCasePix, 0, this.largeurCasePix, this.hauteurCasePix, null);
-                    break;
-                }
-                case '7': {
-                    g.drawImage(this.donnees.getListeSprites()[75], i * this.largeurCasePix, 0, this.largeurCasePix, this.hauteurCasePix, null);
-                    break;
-                }
-                case '8': {
-                    g.drawImage(this.donnees.getListeSprites()[76], i * this.largeurCasePix, 0, this.largeurCasePix, this.hauteurCasePix, null);
-                    break;
-                }
-                case '9': {
-                    g.drawImage(this.donnees.getListeSprites()[77], i * this.largeurCasePix, 0, this.largeurCasePix, this.hauteurCasePix, null);
-                    break;
-                }
+            if(Score.charAt(i) != '.'){
+                g.drawImage(this.donnees.getListeSprites()[base+Character.getNumericValue(Score.charAt(i))], i * this.largeurCasePix, hauteur, this.largeurCasePix, this.hauteurCasePix, null);
+            } else {
+                g.drawImage(this.donnees.getListeSprites()[88], i * this.largeurCasePix, hauteur, this.largeurCasePix, this.hauteurCasePix, null);
             }
+        
+        
         }
     }
     
@@ -208,7 +201,7 @@ public class PanJeu extends JPanel implements Runnable
     
     @Override
     public void run() {
-        while (this.donnees.getThreadpacman().isJouerPM() && this.donnees.getAffichage().getPanchargement().getLaby().getNbGumm() != this.donnees.getNbrgumm()) {
+        while (this.donnees.getAffichage().getPanchargement().getLaby() != null && this.donnees.getThreadpacman().isJouerPM() && this.donnees.getAffichage().getPanchargement().getLaby().getNbGumm() != this.donnees.getNbrgumm()) {
             try {
                 Thread.sleep(50L);
             }

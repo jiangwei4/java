@@ -54,7 +54,7 @@ public class Pacman extends Personnage implements Runnable
     }
     
     public void run() {
-        while (this.donnees.getThreadpacman().isJouerPM() && this.jouer) {
+        while (this.donnees.getThreadpacman().isJouerPM() && this.jouer && this.donnees.getAffichage().getPanchargement().getLaby() != null) {
             this.ratioCaseX = this.tailleX / 10;
             this.ratioCaseY = this.tailleY / 10;
             this.vie();
@@ -168,16 +168,17 @@ public class Pacman extends Personnage implements Runnable
             catch (Exception e) {
                 e.printStackTrace();
             }
-            if (this.donnees.getAffichage().getPanchargement().getLaby() != null && this.donnees.getNbrgumm() == this.donnees.getAffichage().getPanchargement().getLaby().getNbGumm()) {
+            if ((this.donnees.getAffichage().getPanchargement().getLaby() != null && this.donnees.getNbrgumm() == this.donnees.getAffichage().getPanchargement().getLaby().getNbGumm())
+            || (this.donnees.getJ1().getPacman().getVie() == 0 && this.donnees.getJ2().getPacman().getVie() == 0)) {
                 if (this == this.donnees.getJ1().getPacman()) {
                     this.donnees.getJ1().setScoreF(this.donnees.getJ1().getScoreF() + this.donnees.getJ1().getPacman().getScore());
                 }
                 else if (this == this.donnees.getJ2().getPacman()) {
                     this.donnees.getJ2().setScoreF(this.donnees.getJ2().getScoreF() + this.donnees.getJ2().getPacman().getScore());
                 }
-                if (this != this.donnees.getJ1().getPacman()) {
+                /*if (this != this.donnees.getJ1().getPacman()) {
                     continue;
-                }
+                }*/
                 this.donnees.getAffichage().afficherFin();
                 this.jouer = false;
             }
